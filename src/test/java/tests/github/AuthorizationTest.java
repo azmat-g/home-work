@@ -21,7 +21,7 @@ public class AuthorizationTest {
         loginInput.click();
         loginInput.sendKeys("azmat-g");
         passwordInput.click();
-        passwordInput.sendKeys("87055450152azmatgithub23001");
+        passwordInput.sendKeys("mypassword");
         submitButton.click();
 
         SelenideElement avatar = $(By.xpath("//*[@class=\"avatar circle\"]"));
