@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class IsPetCreated {
+public class PetTests {
 
     @Test
     @Order(1)
