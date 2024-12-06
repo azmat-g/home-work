@@ -12,7 +12,7 @@ public class AuthorizationTest {
 
     @Test
     public void validEmailAndPassword(){
-        open("https://github.com/login");
+        open("/login");
 
         SelenideElement loginInput = $(By.id("login_field"));
         SelenideElement passwordInput = $(By.id("password"));
@@ -37,7 +37,7 @@ public class AuthorizationTest {
 
     @Test
     public void invalidEmailAndPassword(){
-        open("https://github.com/login");
+        open("/login");
 
         SelenideElement loginInput = $(By.id("login_field"));
         SelenideElement passwordInput = $(By.id("password"));

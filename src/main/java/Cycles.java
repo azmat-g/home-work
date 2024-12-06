@@ -6,12 +6,8 @@ public class Cycles {
         int[] intArray = {1, 2, 3, 4, 5, 6, 7};
 
         for(int i = 0; i < intArray.length; i++){
-            if(intArray[i] != 5){
-                System.out.println(intArray[i]);
-            }
-            else {
-                break;
-            }
+            if(intArray[i]==5){break;}
+            System.out.println(intArray[i]);
         }
 
         int xyzPop = 10_000_000;

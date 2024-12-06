@@ -1,34 +1,36 @@
 package tests.github;
 
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import pageObject.SignUpPage;
+import uiConfiguration.BaseTest;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class ValidationTest {
+public class ValidationTest extends BaseTest {
+
+    @BeforeEach
+    public void oprnPage(){
+        open(new SignUpPage().getPageUrl());
+        new SignUpPage().isContinueBtnDisplayed();
+    }
 
     @Test
     public void invalidEmailTest(){
-        open("https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home");
-
-        SelenideElement emailInput = $(By.name("user[email]"));
-        SelenideElement continueButton = $(By.xpath("//*[@data-continue-to=\"password-container\"]"));
-
-        emailInput.click();
-        emailInput.sendKeys("azmatgmail.com");
-        continueButton.shouldNotBe(clickable);
+        SignUpPage signUpPage = new SignUpPage();
+        open(signUpPage.getPageUrl());
+        signUpPage.setEmail("azmatgmail.com");
+        signUpPage.getContinueButton().shouldNotBe(clickable);
     }
 
     @Test
     public void validEmailTest(){
-        open("https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home");
-        SelenideElement emailInput = $(By.name("user[email]"));
-        SelenideElement continueButton = $(By.xpath("//*[@data-continue-to=\"password-container\"]"));
-
-        emailInput.clear();
-        emailInput.sendKeys("azmat2000@gmail.com");
-        continueButton.shouldBe(clickable);
+        SignUpPage signUpPage = new SignUpPage();
+        open(signUpPage.getPageUrl());
+        signUpPage.setEmail("azmat2000@gmail.com");
+        signUpPage.getContinueButton().shouldBe(clickable);
     }
 }

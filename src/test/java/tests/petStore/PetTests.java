@@ -1,10 +1,7 @@
 package tests.petStore;
 
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import tests.petStore.pojos.*;
 
 import static io.restassured.RestAssured.given;
@@ -13,8 +10,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PetTests {
 
+    //Тест на создание животного
     @Test
     @Order(1)
+    @DisplayName("Проверка создания животного через POST запрос")
     public void createPet(){
 
         PetFull petRequestBody = PetFull.getPetData();
