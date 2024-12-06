@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class ValidationTest extends BaseTest {
 
     @BeforeEach
-    public void oprnPage(){
+    public void openPage(){
         open(new SignUpPage().getPageUrl());
         new SignUpPage().isContinueBtnDisplayed();
     }

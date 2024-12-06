@@ -1,53 +1,45 @@
 package tests.github;
 
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import pageObject.DashboardPage;
+import pageObject.SignInPage;
+import uiConfiguration.BaseTest;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class AuthorizationTest {
+public class AuthorizationTest extends BaseTest {
+
+    @BeforeEach
+    public void openPage(){
+        open(new SignInPage().getPageUrl());
+        new SignInPage().isSubmitButtonDisplayed();
+    }
 
     @Test
     public void validEmailAndPassword(){
-        open("/login");
 
-        SelenideElement loginInput = $(By.id("login_field"));
-        SelenideElement passwordInput = $(By.id("password"));
-        SelenideElement submitButton = $(By.name("commit"));
+        SignInPage signInPage = new SignInPage();
 
-        loginInput.click();
-        loginInput.sendKeys("azmat-g");
-        passwordInput.click();
-        passwordInput.sendKeys("mypassword");
-        submitButton.click();
+        signInPage.authOperation("azmat-g", "correctPassword");
 
-        SelenideElement avatar = $(By.xpath("//*[@class=\"avatar circle\"]"));
-        avatar.shouldBe(visible);
+        DashboardPage dashboardPage = new DashboardPage();
 
-        avatar.click();
-        SelenideElement signOutButton = $(By.id(":r10:--label"));
-        signOutButton.click();
-
-        SelenideElement confirmSignOutButton = $(By.xpath("//*[@value=\"Sign out from all accounts\"]"));
-        confirmSignOutButton.click();
+        dashboardPage.getAvatar().shouldBe(visible);
+        dashboardPage.logOut();
     }
 
     @Test
     public void invalidEmailAndPassword(){
-        open("/login");
 
-        SelenideElement loginInput = $(By.id("login_field"));
-        SelenideElement passwordInput = $(By.id("password"));
-        SelenideElement submitButton = $(By.name("commit"));
+        SignInPage signInPage = new SignInPage();
 
-        loginInput.click();
-        loginInput.sendKeys("azmat-g");
-        passwordInput.click();
-        passwordInput.sendKeys("azmat");
-        submitButton.click();
+        signInPage.authOperation("azmat-g", "azmat");
 
         SelenideElement incorrectUsernameMessage = $(By.className("js-flash-alert"));
         incorrectUsernameMessage.shouldBe(visible);
