@@ -9,5 +9,6 @@ public class BaseTest {
     public static void setConf(){
         Configuration.browser = "chrome";
         Configuration.baseUrl = "https://github.com";
+        // Configuration.browserSize = "1920x1080";
     }
 }

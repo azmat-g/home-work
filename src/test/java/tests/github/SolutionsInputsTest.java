@@ -3,28 +3,33 @@ package tests.github;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import pageObject.CiCdPage;
+import pageObject.ContactSalesPage;
+import pageObject.MainPage;
+import uiConfiguration.BaseTest;
 
 import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class SolutionsInputsTest {
+public class SolutionsInputsTest extends BaseTest {
 
     @Test
     public void solutionsInputsTest() {
-        open("https://github.com/enterprise/contact?ref_cta=Contact+sales&ref_loc=hero&ref_page=%2Fsolutions_usecase_cicd");
+        open("/");
 
-        SelenideElement firstNameInput = $(By.id(":Rimb:"));
-        SelenideElement lastNameInput = $(By.id(":R12mb:"));
+        new MainPage().openCiCdPage();
+        new CiCdPage().openContactSalesPage();
 
-        firstNameInput.click();
-        firstNameInput.sendKeys("Azmat");
+        ContactSalesPage contactSalesPage = new ContactSalesPage();
 
-        lastNameInput.click();
-        lastNameInput.setValue("Giniyatov");
+        String firstName = "Azmat";
+        String lastName = "Giniyatov";
 
-        firstNameInput.shouldHave(value("Azmat"));
-        lastNameInput.shouldHave(value("Giniyatov"));
+        contactSalesPage.setFirstNameAndLastName(firstName, lastName);
+
+        contactSalesPage.getFirstNameInput().shouldHave(value(firstName));
+        contactSalesPage.getLastNameInput().shouldHave(value(lastName));
     }
 
 }
